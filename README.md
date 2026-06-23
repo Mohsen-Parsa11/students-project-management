@@ -25,8 +25,6 @@ A web-based platform built with **PHP** and **Tailwind CSS** designed to streaml
 * **Backend:** PHP (OOP / Procedural)
 * **Frontend:** Tailwind CSS (Responsive Design)
 * **Database:** MySQL
-* **Icons & Fonts:** FontAwesome / Google Fonts
-
 ---
 
 ## 💻 Installation & Setup
@@ -35,14 +33,14 @@ Follow these steps to run the project locally:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com
+   git clone [https://github.com](https://github.com/Mohsen-Parsa11/students-project-management.git)
    cd your-repo-name
    ```
 
 2. **Set up the Database:**
    * Open XAMPP/WAMP and start **Apache** and **MySQL**.
    * Go to `http://localhost/phpmyadmin/`.
-   * Create a new database (e.g., `university_pm`).
+   * Create a new database (e.g., `spms_db2`).
    * Import the provided `.sql` file located in the database folder.
 
 3. **Configure Database Connection:**
@@ -52,7 +50,7 @@ Follow these steps to run the project locally:
      define('DB_SERVER', 'localhost');
      define('DB_USERNAME', 'root');
      define('DB_PASSWORD', '');
-     define('DB_NAME', 'university_pm');
+     define('DB_NAME', 'spms_db2');
      ```
 
 4. **Run the Application:**
@@ -61,21 +59,8 @@ Follow these steps to run the project locally:
 
 ---
 
-## 📸 Screenshots
-
-| Student Dashboard | Admin Panel |
-|---|---|
-| *[Add Student Dashboard Image Link]* | *[Add Admin Panel Image Link]* |
-
----
-
 ## 🔑 Default Credentials (For Testing)
 
-* **Admin Email:** `admin@university.com` | **Password:** `admin123`
-* **Student Email:** `student@university.com` | **Password:** `student123`
+* **Admin Email:** `jumaa@gmail.com` | **Password:** `12345678`
+* **Student Email:** `mujtaba@gmail.com` | **Password:** `mujtaba123`
 
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
