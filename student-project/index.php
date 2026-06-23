@@ -1,14 +1,15 @@
 <?php
+session_name('SPMS_STUDENT');
 session_start();
 // If already logged in, send to the right dashboard
 require_once __DIR__ . "/config/functions.php";
 if (isset($_SESSION['user_id'])) {
-    if ($_SESSION['role'] === 'admin') {
-        require_once __DIR__ . "/config/functions.php";
-        header("Location: " . base_path() . "/admin/dashboard.php");
-    } else {
-        require_once __DIR__ . "/config/functions.php";
+    if (($_SESSION['role'] ?? '') === 'student') {
         header("Location: " . base_path() . "/student/dashboard.php");
+    } else {
+        $_SESSION = [];
+        session_destroy();
+        header("Location: " . base_path() . "/auth/login.php");
     }
     exit;
 }
@@ -46,7 +47,7 @@ if (isset($_SESSION['user_id'])) {
             </h1>
             <p class="mt-5 text-lg text-slate-600 max-w-2xl mx-auto text-pretty">
                 A simple platform for university students to submit, track, and manage their
-                semester projects, with an admin panel for review and approval.
+                semester projects, and track admin review status from one student dashboard.
             </p>
             <div class="mt-8 flex items-center justify-center gap-4">
                 <a href="<?php echo base_path(); ?>/auth/register.php" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700">Get Started</a>
@@ -73,8 +74,8 @@ if (isset($_SESSION['user_id'])) {
             </div>
             <div class="border border-slate-200 rounded-xl p-6">
                 <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold mb-4">3</div>
-                <h3 class="font-semibold text-lg">Admin Control</h3>
-                <p class="text-slate-600 text-sm mt-2">Admins manage all users and projects, approve or reject submissions, and export records as CSV.</p>
+                <h3 class="font-semibold text-lg">Manage Your Work</h3>
+                <p class="text-slate-600 text-sm mt-2">Students can edit their own submissions, replace uploaded files, and remove projects when needed.</p>
             </div>
         </div>
     </section>

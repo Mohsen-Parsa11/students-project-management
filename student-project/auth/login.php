@@ -1,11 +1,18 @@
 <?php
+session_name('SPMS_STUDENT');
 session_start();
 require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../config/functions.php";
 
 // Already logged in? go to dashboard
 if (isset($_SESSION['user_id'])) {
-    header("Location: " . base_path() . "/index.php");
+    if (($_SESSION['role'] ?? '') === 'student') {
+        header("Location: " . base_path() . "/student/dashboard.php");
+    } else {
+        $_SESSION = [];
+        session_destroy();
+        header("Location: " . base_path() . "/auth/login.php");
+    }
     exit;
 }
 
@@ -24,17 +31,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result && mysqli_num_rows($result) === 1) {
             $user = mysqli_fetch_assoc($result);
             if (password_verify($password, $user['password'])) {
+                if ($user['role'] !== 'student') {
+                    $errors[] = "This login is for students only.";
+                } else {
                 // Store session
                 $_SESSION['user_id']  = $user['id'];
                 $_SESSION['fullname'] = $user['fullname'];
                 $_SESSION['role']     = $user['role'];
 
-                if ($user['role'] === 'admin') {
-                    header("Location: " . base_path() . "/admin/dashboard.php");
-                } else {
-                    header("Location: " . base_path() . "/student/dashboard.php");
-                }
+                header("Location: " . base_path() . "/student/dashboard.php");
                 exit;
+                }
             } else {
                 $errors[] = "Invalid email or password.";
             }
@@ -57,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="w-full max-w-md bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
         <div class="text-center mb-6">
             <h1 class="text-2xl font-bold">Welcome Back</h1>
-            <p class="text-slate-500 text-sm mt-1">Login to your SPMS account.</p>
+            <p class="text-slate-500 text-sm mt-1">Login to your SPMS student account.</p>
         </div>
 
         <?php if (!empty($errors)): ?>
@@ -90,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </p>
 
         <p class="text-center text-xs text-slate-400 mt-4">
-            Admin demo: jumaa@gmail.com / 12345678
+            Student accounts can be created from the register page.
         </p>
     </div>
 

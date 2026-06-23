@@ -26,7 +26,7 @@ if (mysqli_query($conn, $sql)) {
     echo "Admin account created!<br>";
     echo "Email: $email<br>";
     echo "Password: $password<br><br>";
-    echo "IMPORTANT: Delete setup-admin.php now, then go to <a href='/auth/login.php'>login</a>.";
+    echo "IMPORTANT: Delete setup-admin.php now, then go to <a href='auth/login.php'>login</a>.";
 } else {
     echo "Error creating admin: " . mysqli_error($conn);
 }

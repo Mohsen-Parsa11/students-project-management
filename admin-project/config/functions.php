@@ -9,11 +9,39 @@ function base_path() {
     if (!isset($_SERVER['SCRIPT_NAME'])) return '';
     $parts = explode('/', trim($_SERVER['SCRIPT_NAME'], '/'));
     if (count($parts) === 0) return '';
+    $projectRoot = basename(dirname(__DIR__));
+    foreach ($parts as $index => $part) {
+        if ($part === $projectRoot) {
+            return '/' . implode('/', array_slice($parts, 0, $index + 1));
+        }
+    }
     // If the first segment looks like a filename (contains a dot), assume web root
     if (strpos($parts[0], '.') !== false) return '';
     return '/' . $parts[0];
 }
 
+function shared_base_path() {
+    $base = base_path();
+    $projectRoot = basename(dirname(__DIR__));
+    if (substr($base, -strlen('/' . $projectRoot)) === '/' . $projectRoot) {
+        return substr($base, 0, -strlen('/' . $projectRoot));
+    }
+    return $base;
+}
+
+function uploads_dir() {
+    $shared = realpath(__DIR__ . "/../../uploads");
+    if ($shared !== false) {
+        return $shared . DIRECTORY_SEPARATOR;
+    }
+    return __DIR__ . "/../uploads/";
+}
+
+function upload_url($filename) {
+    $shared = realpath(__DIR__ . "/../../uploads");
+    $base = $shared !== false ? shared_base_path() : base_path();
+    return $base . "/uploads/" . rawurlencode($filename);
+}
 
 // Handles a file upload from $_FILES.
 // Returns: ['ok' => true, 'filename' => '...'] on success
@@ -43,7 +71,7 @@ function handle_upload($fileInput) {
 
     // Unique filename: time + random number
     $newName = time() . "_" . rand(1000, 9999) . "." . $ext;
-    $uploadDir = __DIR__ . "/../uploads/";
+    $uploadDir = uploads_dir();
     $target = $uploadDir . $newName;
 
     if (!move_uploaded_file($fileInput['tmp_name'], $target)) {

@@ -5,6 +5,7 @@
 // ============================================
 
 if (session_status() === PHP_SESSION_NONE) {
+    session_name('SPMS_ADMIN');
     session_start();
 }
 
@@ -27,12 +28,9 @@ function require_login() {
 function require_role($role) {
     require_login();
     if ($_SESSION['role'] !== $role) {
-        // Logged in but wrong role -> bounce to their own dashboard
-        if ($_SESSION['role'] === 'admin') {
-            header("Location: " . base_path() . "/admin/dashboard.php");
-        } else {
-            header("Location: " . base_path() . "/student/dashboard.php");
-        }
+        $_SESSION = [];
+        session_destroy();
+        header("Location: " . base_path() . "/auth/login.php");
         exit;
     }
 }

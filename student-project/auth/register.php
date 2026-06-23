@@ -1,11 +1,18 @@
 <?php
+session_name('SPMS_STUDENT');
 session_start();
 require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../config/functions.php";
 
 // Already logged in? go to dashboard
 if (isset($_SESSION['user_id'])) {
-    header("Location: " . base_path() . "/index.php");
+    if (($_SESSION['role'] ?? '') === 'student') {
+        header("Location: " . base_path() . "/student/dashboard.php");
+    } else {
+        $_SESSION = [];
+        session_destroy();
+        header("Location: " . base_path() . "/auth/login.php");
+    }
     exit;
 }
 

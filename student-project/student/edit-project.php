@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($up['filename'] !== '') {
             // Remove old file from disk
             if (!empty($project['file'])) {
-                $oldPath = __DIR__ . "/../uploads/" . $project['file'];
+                $oldPath = uploads_dir() . $project['file'];
                 if (file_exists($oldPath)) { unlink($oldPath); }
             }
             $filename = $up['filename'];
@@ -101,7 +101,7 @@ include __DIR__ . "/../includes/sidebar.php";
             <?php if (!empty($project['file'])): ?>
                 <p class="text-xs text-slate-500 mt-1">
                     Current file:
-                    <a href="<?php echo base_path(); ?>/uploads/<?php echo htmlspecialchars($project['file']); ?>" target="_blank" class="text-blue-600 hover:underline">View</a>
+                    <a href="<?php echo upload_url($project['file']); ?>" target="_blank" class="text-blue-600 hover:underline">View</a>
                 </p>
             <?php endif; ?>
         </div>

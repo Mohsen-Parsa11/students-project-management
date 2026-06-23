@@ -1,4 +1,5 @@
 <?php
+session_name('SPMS_STUDENT');
 session_start();
 require_once __DIR__ . "/../config/functions.php";
 // Clear all session data and destroy the session

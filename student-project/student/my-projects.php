@@ -14,7 +14,7 @@ if (isset($_GET['delete'])) {
     if ($r && mysqli_num_rows($r) === 1) {
         $row = mysqli_fetch_assoc($r);
         if (!empty($row['file'])) {
-            $path = __DIR__ . "/../uploads/" . $row['file'];
+            $path = uploads_dir() . $row['file'];
             if (file_exists($path)) { unlink($path); }
         }
         mysqli_query($conn, "DELETE FROM projects WHERE id = $del AND user_id = $uid");
@@ -71,7 +71,7 @@ include __DIR__ . "/../includes/sidebar.php";
                             </td>
                             <td class="px-4 py-3">
                                 <?php if (!empty($p['file'])): ?>
-                                    <a href="<?php echo base_path(); ?>/uploads/<?php echo htmlspecialchars($p['file']); ?>" target="_blank" class="text-blue-600 hover:underline">View</a>
+                                    <a href="<?php echo upload_url($p['file']); ?>" target="_blank" class="text-blue-600 hover:underline">View</a>
                                 <?php else: ?>
                                     <span class="text-slate-400">None</span>
                                 <?php endif; ?>
