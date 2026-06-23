@@ -1,6 +1,5 @@
 <?php
 // Shared dashboard layout header.
-// Expects $page_title to be set before including.
 if (!isset($page_title)) { $page_title = "SPMS"; }
 ?>
 <!DOCTYPE html>
