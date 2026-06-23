@@ -33,7 +33,7 @@ Follow these steps to run the project locally:
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com](https://github.com/Mohsen-Parsa11/students-project-management.git)
+   git clone https://github.com/Mohsen-Parsa11/students-project-management.git
    cd your-repo-name
    ```
 
