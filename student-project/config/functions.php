@@ -1,10 +1,6 @@
 <?php
-// ============================================
 // Shared helper functions
-// ============================================
 
-// Returns the app base path (e.g. '/student-project-management' when deployed
-// in a subfolder). Returns an empty string when the app is in web root.
 function base_path() {
     if (!isset($_SERVER['SCRIPT_NAME'])) return '';
     $parts = explode('/', trim($_SERVER['SCRIPT_NAME'], '/'));

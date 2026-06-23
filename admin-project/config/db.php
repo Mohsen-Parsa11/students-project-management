@@ -1,11 +1,9 @@
 <?php
-// ============================================
 // Database Connection (mysqli)
-// ============================================
 
 $DB_HOST = "localhost";
 $DB_USER = "root";
-$DB_PASS = "";          // set your MySQL password here (XAMPP default is empty)
+$DB_PASS = "";
 $DB_NAME = "spms_db2";
 
 // Create connection

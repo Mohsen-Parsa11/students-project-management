@@ -1,10 +1,6 @@
 <?php
-// ============================================
 // Shared helper functions
-// ============================================
 
-// Returns the app base path (e.g. '/student-project-management' when deployed
-// in a subfolder). Returns an empty string when the app is in web root.
 function base_path() {
     if (!isset($_SERVER['SCRIPT_NAME'])) return '';
     $parts = explode('/', trim($_SERVER['SCRIPT_NAME'], '/'));
@@ -42,11 +38,6 @@ function upload_url($filename) {
     $base = $shared !== false ? shared_base_path() : base_path();
     return $base . "/uploads/" . rawurlencode($filename);
 }
-
-// Handles a file upload from $_FILES.
-// Returns: ['ok' => true, 'filename' => '...'] on success
-//          ['ok' => false, 'error' => '...']   on failure
-//          ['ok' => true, 'filename' => '']    when no file was chosen (optional upload)
 function handle_upload($fileInput) {
     // No file chosen -> allowed (file is optional on edit)
     if (!isset($fileInput) || $fileInput['error'] === UPLOAD_ERR_NO_FILE) {
